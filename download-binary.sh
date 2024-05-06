@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="0.8.18"
+VERSION="$1"
 ARCH="$2"
 VARIANT="$3"
 BIN_PATH="$4"
