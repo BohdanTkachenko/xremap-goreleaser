@@ -1,0 +1,57 @@
+project_name: xremap
+builds:
+  - id: xremap
+    main: placeholder.go
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    binary: xremap
+    hooks:
+      post: >-
+        sh download-binary.sh
+        "{{ .RawVersion }}"
+        "{{- if eq .Arch "amd64" }}x86_64{{- else if eq .Arch "arm64" }}aarch64{{ else }}{{ .Arch }}{{ end }}"
+        "gnome"
+        "{{ .Path }}"
+
+archives:
+  - format: binary
+
+checksum:
+    name_template: >-
+      {{ .ProjectName }}-gnome-checksums.txt
+
+nfpms:
+  - id: xremap
+    package_name: xremap
+    file_name_template: >-
+      {{ .ProjectName }}-
+      {{- .Os }}-
+      {{- if eq .Arch "amd64_v1" }}x86_64
+      {{- else if eq .Arch "arm64" }}aarch64
+      {{- else }}{{ .Arch }}{{ end }}-gnome
+    vendor: Takashi Kokubun
+    homepage: https://github.com/xremap/xremap
+    maintainer: Bohdan Tkachenko <bohdan@tkachenko.dev>
+    description: Dynamic key remapp for X and Wayland
+    license: MIT
+    formats:
+      - deb
+      - rpm
+    recommends:
+      - systemd
+      - systemd-udev
+    contents:
+      - src: xremap.service
+        dst: /usr/lib/systemd/system/xremap.service
+      - src: xremap.yaml
+        dst: /etc/xremap.yaml
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"

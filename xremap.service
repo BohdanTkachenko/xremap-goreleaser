@@ -1,0 +1,11 @@
+[Unit]
+Description=Dynamic key remapp for X and Wayland
+
+[Service]
+ExecStart=/usr/bin/xremap --watch=device /etc/xremap.yaml
+Restart=on-failure
+RestartSec=120
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,15 @@
+# See examples at: https://github.com/xremap/xremap/tree/master/example
+
+# modmap:
+#   - name: Global
+#     remap:
+#       # CapsLock/Ctrl_L -> Esc
+#       CapsLock: Esc
+#       Ctrl_L: Esc
+
+# keymap:
+#   - name: Terminal
+#     application:
+#       only: Gnome-terminal
+#     remap:
+#       Super-o: M-o
