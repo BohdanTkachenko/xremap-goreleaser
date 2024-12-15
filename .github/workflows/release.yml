@@ -1,15 +1,9 @@
-# .github/workflows/release.yml
-name: goreleaser
+name: GoReleaser
 
 on:
-  pull_request:
   push:
     tags:
-      - "*"
-
-permissions:
-  contents: write
-  packages: write
+      - 'v*.*.*'
 
 jobs:
   goreleaser:
@@ -19,10 +13,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version: stable
+
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:
